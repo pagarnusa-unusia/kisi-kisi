@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSNU Pagar Nusa: Lebih dari Sekadar Organisasi Pencak Silat - PAGARNUSA UNUSIA</title>
+    <style>
+        /* Gaya Umum */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-left: 20px; /* Ruang untuk daftar isi */
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* Untuk memposisikan tombol toggle di dalamnya */
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .article-section {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-container h2 {
+            font-size: 1.8em;
+            color: #3498db;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        span[style*="italic"] {
+            font-style: italic;
+            color: #777;
+        }
+
+        /* Daftar Isi */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            background-color: #f8f8f8;
+            border-right: 1px solid #eee;
+            padding: 20px;
+            overflow-y: auto;
+            height: 100%;
+            z-index: 999;
+            transform: translateX(-250px); /* Sembunyikan secara default */
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.open {
+            transform: translateX(0); /* Munculkan saat kelas 'open' ditambahkan */
+        }
+
+        .sidebar h2 {
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #0645ad;
+            display: block;
+            padding: 5px 0;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tombol Toggle Daftar Isi */
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .toc-toggle:hover {
+            background-color: #555;
+        }
+
+        /* Mode Malam untuk Daftar Isi dan Toggle */
+        body.dark-mode .sidebar {
+            background-color: #252525;
+            border-right-color: #444;
+        }
+
+        body.dark-mode .sidebar h2 {
+            color: #eee;
+            border-bottom-color: #555;
+        }
+
+        body.dark-mode .sidebar a {
+            color: #d4d4d4;
+        }
+
+        body.dark-mode .toc-toggle {
+            background-color: #eee;
+            color: #333;
+        }
+
+        body.dark-mode .toc-toggle:hover {
+            background-color: #ccc;
+        }
+
+        /* Mode Malam untuk Tombol Mode Malam (agar tetap terlihat) */
+        body.dark-mode .night-mode-toggle {
+            background-color: #eee;
+            color: #333;
+        }
+
+        body.dark-mode .night-mode-toggle:hover {
+            background-color: #ccc;
+        }
+
+        .night-mode-toggle {
+            position: fixed;
+            top: 60px; /* Posisikan di bawah tombol TOC */
+            right: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .night-mode-toggle:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <button class="toc-toggle" onclick="toggleToc()">☰ Daftar Isi</button>
+    <div class="sidebar">
+        <h2>Daftar Isi</h2>
+        <ul>
+            <li><a href="#sejarah">Sejarah</a></li>
+            <li><a href="#hierarki-organisasi">Hierarki Organisasi</a></li>
+            <li><a href="#daftar-ketua-umum">Daftar Ketua Umum Pimpinan Pusat Pencak Silat NU Pagarnusa</a></li>
+            <li><a href="#tujuan-pagar-nusa">Tujuan Pagar Nusa</a></li>
+            <li><a href="#prasetya-pagar-nusa">Prasetya Pagar Nusa</a></li>
+            <li><a href="#perguruan-padepokan">Perguruan Beladiri Dan Padepokan yang Bernaung di Pagar Nusa</a></li>
+            <li><a href="#catatan-kaki">Catatan kaki</a></li>
+        </ul>
+    </div>
+
+    <button class="night-mode-toggle" onclick="toggleNightMode()">Mode Malam</button>
+    <div class="container">
+        <div class="logo-container">
+            <h2>PAGARNUSA UNUSIA</h2>
+        </div>
+
+        <h1 class="article-title">PSNU Pagar Nusa: Lebih dari Sekadar Organisasi Pencak Silat</h1>
+
+ <div class="article-section" id="sejarah">
+            <h2>Sejarah</h2>
+            <p><strong>Pencak Silat Nahdlatul Ulama Pagar Nusa</strong> atau PSNU PAGARNUSA, adalah organisasi yang mewadahi <a href="https://id.wikipedia.org/wiki/Pencak_silat">pencak silat</a> di bawah naungan <a href="https://id.wikipedia.org/wiki/Nahdlatul_Ulama">Nahdlatul Ulama</a> yang digagas pada 12 Muharam 1406 H / 27 September 1985 M di <a href="https://id.wikipedia.org/wiki/Pondok_Pesantren_Tebuireng">Pondok Pesantren Tebuireng</a> Jombang, Jawa Timur. Diperkirakan anggotanya yaitu mencapai 12.5 juta an,itu untuk yang belum memiliki KTA sedangkan yang resmi atau memiliki KTA adalah 8.5juta lebih ,Penggagas pertamanya adalah Drs. KH. Muhammad Nur Aziz dan Resmi Berdiri pada 22 Rabi’ul Akhir 1406 H / 03 Januari 1986 M di <a href="https://id.wikipedia.org/wiki/Pondok_Pesantren_Lirboyo">Pondok Pesantren Lirboyo</a> Kediri, Jawa Timur. Ketua Umum pertamanya adalah <a href="https://id.wikipedia.org/wiki/Abdullah_Maksum_Jauhari">KH. Abdulloh Maksum Jauhari</a> dalam rangka menyatukan dan mewadahi sejumlah perguruan silat NU yang dahulunya beragam dan berdiri sendiri-sendiri.<sup id="cite_ref-1"><a href="#cite_note-1">[1]</a></sup> <sup id="cite_ref-2"><a href="#cite_note-2">[2]</a></sup> Hingga saat ini PSNU PAGAR NUSA memiliki nama resmi "Pencak Silat Nahdlatul Ulama Pagar Nusa".<sup id="cite_ref-3"><a href="#cite_note-3">[3]</a></sup></p>
+            <p>PSNU PAGAR NUSA berdiri sebagai badan otonom di bawah naungan Nahdlatul Ulama yang berbasis gerakan dalam melaksanakan kebijakan NU pada pengembangan seni, budaya, tradisi, olahraga pencak silat, pengobatan alternatif, dan pengabdian masyarakat.</p>
+            <h3>Pendiri pagarnusaSejarah<sup id="cite_ref-sunting_kaynak-0"><a href="#cite_note-sunting_kaynak-0">[sunting | sunting sumber]</a></sup></h3>
+            <p>Berdirinya IPSNU PAGAR NUSA atau yang sekarang namanya menjadi PSNU PAGAR NUSA ini pada umumnya dilatarbelakangi oleh perasaan gelisah yang dirasakan oleh para ulama. Terutama perguruan pencak silat yang kala itu tidak ada suatu wadah yang menaungi para perguruan pencak silat yang jumlahnya tidak sedikit. Para ulama dan pendekar menyayangkan jika perguruan pencak silat di lingkungan NU kala itu tidak ada wadah tersendiri untuk bersatu dalam suatu wadah.</p>
+            <p>Kemudian, pendekar asal <a href="https://id.wikipedia.org/wiki/Ponorogo">Ponorogo, Jawa Timur</a> yaitu Drs. KH. Muhammad Nur Aziz yang mempunyai gagasan untuk mendirikan sebuah wadah khusus perguruan pencak silat di kalangan NU. Akhirnya Drs. KH. Muhammad Nur Aziz menyampaikan gagasannya ke KH. Lamro Asyhari, muridnya sendiri dan mengutus untuk menyampaikan gagasan beliau ke para kiyai dan pendekar NU.</p>
+            <p>Kemudian KH. Lamro Asyhari mengutus Gus Reza Fahlevi, Gus Khamim Kohari dan para pendekar tebuireng lainnya membentuk panitia untuk mempersiapkan pertemuan pertama pada tanggal 27 September 1985 M. Setelah itu para ulama dan pendekar pencak silat menghadiri undangan panitia dan melaksanakan musyawarah pertama di <a href="https://id.wikipedia.org/wiki/Pesantren_Tebuireng">Pesantren Tebuireng</a>, Jombang dan beragenda untuk mendirikan sebuah organisasi yang berafiliasi kepada Jam'iyah <a href="https://id.wikipedia.org/wiki/Nahdlatul_Ulama">Nahdlatul Ulama</a> dengan tujuan khusus untuk mewadahi dan mengembangkan kemampuan di bidang pencak silat.</p>
+            <p>Pertemuan kedua yakni pada tanggal 03 Januari 1986 di <a href="https://id.wikipedia.org/wiki/Pondok_Pesantren_Lirboyo">Pondok Pesantren Lirboyo</a>, dihadiri oleh Tokoh Silat dari Pondok Pesantren Tebuireng, Tokoh Silat dari Pondok Pesantren Lirboyo, Tokoh Silat dari Nganjuk, Tokoh Silat dari Ponorogo, Tokoh Silat dari Pasuruan dan beberapa tokoh silat lainnya.</p>
+            <p>Untuk utusan yang dikirim dari PWNU adalah KH. Bukhori Susanto dan KH. Suharbillah, dari pertemuan itu KH. Lamro Asyhari sempat ditunjuk jadi ketua tetapi beliau asih muda akhirnya KH. Abdullah Maksum jauhari yang menjadi ketuanya dan menyepakati keputusan penting yaitu:</p>
+            <ol>
+                <li>Terbentuknya pengurus Ikatan Pencak Silat Nahdlatul Ulama yang disingkat IPSNU,</li>
+                <li>Menugaskan kepada para peserta untuk mengusulkan AD dan ART serta simbol IPSNU untuk dibahas pada pertemuan berikutnya.</li>
+            </ol>
+            <p>Kemudian di pertemuan ke tiga bertempat di pondok pesantren Al Masruriyyah berada di depan pondok pesantren tebuireng, acara pokok adalah membahas AD/ART dan simbol IPSNU akhirnya menghasilkan keputusan: 1. Simbol IPSNU disetujui, 2. AD/ART belum bisa dibahas tuntas untuk itu menugaskan KH. Suharbillah untuk menyelesaikannya.</p>
+            <p>pada tanggal 20 Maret 1986 di aula kantor PWNU di jln. Raya darmo no 96 surabaya, PWNU diwakili KH. Anas Thohir menanggapi perihal masalah nama karena IPSI menyarankan jangan memakai nama langsung induk organisasi, maka KH. Anas Thohir mengusulkan nama "PAGARNUSA" lengkapnya IPSNU PAGARNUSA, nama sekaligus simbol PAGARNUSA tersebut ciptaan KH. Mujib Ridwan putra dari KH. Ridwan Abdullah pencipta lambang NU, dari keputusan itu akhirnya disepakati nama IPSNU PAGARNUSA.</p>
+            <p>Dan pada tanggal 26 Maret 1986 bertempat di TPQ Khodijah Surabaya, jawa timur. Nama Ikatan Pencak Silat NU Pagarnusa disahkan dan pengurus yang telah terbentuk dan dilantik oleh KH. Imron Hamzah PWNU Jawa Timur, kiasan nama PAGARNUSA adalah Pagarnya NU dan Bangsa.</p>
+            <p>Kemudian pada tanggal 16 Juli 1986, <a href="https://id.wikipedia.org/wiki/Pengurus_Besar_Nahdlatul_Ulama">Pengurus Besar Nahdlatul Ulama</a> yang ketika itu dinahkodai oleh <a href="https://id.wikipedia.org/wiki/Ahmad_Shidiq">KH. Ahmad Shidiq</a> sebagai Rais 'Aam dan <a href="https://id.wikipedia.org/wiki/Abdurrahman_Wahid">KH. Abdurrahman Wahid</a> (Gus Dur) sebagai Ketua Umum-nya, melakukan peresmian terhadap Lembaga Pencak Silat Nahdhatul Ulama Pagarnusa sebagai salah satu lembaga di bawah pangkuan Jam'iyah Nahdlatul Ulama dan ketua umum LPSNU Pagarnusa pertama kali dijabat oleh <a href="https://id.wikipedia.org/wiki/Abdullah_Maksum_Jauhari">KH. Abdullah Maksum Jauhari</a>.</p>
+            <p>IPSNU Pagarnusa mengadakan Munas I di Pondok Pesantren Zainul Hasan, Genggong, Kraksaan, Probolinggo. Surat kesediaan ditempati sebagai penyelenggara munas ditandatangani oleh KH Saifurrizal. la juga yang menentukan tanggal pelaksanaan acara tersebut, yaitu 20-23 September 1991. Namun, ternyata itu adalah tanggal yang tepat dengan 100 hari wafatnya KH Saifurrizal sehingga pada pembukaan acara pun terlebih dahulu diadakan tahlilan.</p>
+            <p>Sesuai hasil Muktamar NU di Cipasung, Tasikmalaya (1994), Lembaga Pencak Silat NU Pagarnusa berubah status dari Lembaga menjadi badan otonom. Kemudian pada Muktamar NU di Lirboyo (1999), status Badan Otonom kembali berubah menjadi lembaga.</p>
+            <p>Munas II IPSNU Pagarnusa diadakan di Padepokan IPSI Taman Mini Indonesia Indah, Jakarta, pada 22 Januari 2001. Acara ini diikuti perwakilan dari Jawa Timur, Jawa Tengah, <a href="https://id.wikipedia.org/wiki/Jawa_Barat">Jawa Barat</a>, <a href="https://id.wikipedia.org/wiki/Lampung">Lampung</a>, Riau, Bali, Kalimantan, dan Sulawesi. Bahkan, Jawa Timur yang merupakan pusat pengembangan IPSNU Pagarnusa mengikutsertakan perwakilan dari cabang-cabang yang ada di 35 kabupaten/kota se-Jawa Timur dan pondok pesantren. Acara yang dibuka oleh Presiden KH Abdurrahman Wahid ini membahas agenda-agenda: (1) Organisasi: Membahas masalah Peraturan Dasar dan dan Peraturan Rumah Tangga (PD/PRT) IPS-NU Pagarnusa; (2) Ke-Pasti-an: Membahas masalah Pasti (Pasukan lnti) dan perangkat yang lain yang meliputi seragam dan atributnya, keanggotaan, dan kepelatihan; (3) Teknik dan Jurus: Membahas, menggali, dan menyempurnakan jurus-jurus yang sudah dimiliki oleh IPS-NU Pagarnusa
+
+Akhirnya pada Muktamar NU ke 31 di Boyolali pada tanggal 28 November - 02 Desember 2004 IPSNU PAGARNUSA jadi Badan Otonom sampai sekarang.
+
+        <div class="article-section" id="hierarki-organisasi">
+            <h2>Hierarki Organisasi</h2>
+            <ol>
+                <li>Pimpinan Pusat (PP) di tingkat nasional;</li>
+                <li>Pimpinan Wilayah (PW) di tingkat provinsi;</li>
+                <li>Pimpinan Cabang Istimewa (PCI) berkedudukan di kepengurusan luar negeri;</li>
+                <li>Pimpinan Cabang (PC) di tingkat kabupaten/kota;</li>
+                <li>Pimpinan Anak Cabang (PAC) di tingkat kecamatan;</li>
+                <li>Pimpinan Rayon (Rayon) berkedudukan di pondok pesantren atau lembaga pendidikan;</li>
+                <li>Pimpinan Ranting (Ranting) di tingkat desa/kelurahan.</li>
+            </ol>
+        </div>
+
+        <div class="article-section" id="daftar-ketua-umum">
+            <h2>Daftar Ketua Umum Pimpinan Pusat Pencak Silat NU Pagarnusa</h2>
+            <p>[Isi daftar ketua umum di sini]</p>
+        </div>
+
+        <div class="article-section" id="tujuan-pagar-nusa">
+            <h2>Tujuan Pagar Nusa</h2>
+            <p>[Isi tentang tujuan Pagar Nusa di sini]</p>
+        </div>
+
+        <div class="article-section" id="prasetya-pagar-nusa">
+            <h2>Prasetya Pagar Nusa</h2>
+            <p>[Isi Prasetya Pagar Nusa di sini]</p>
+        </div>
+
+        <div class="article-section" id="perguruan-padepokan">
+            <h2>Perguruan Beladiri Dan Padepokan yang Bernaung di Pagar Nusa</h2>
+            <p>[Isi daftar perguruan dan padepokan di sini]</p>
+        </div>
+
+        <div class="article-section" id="catatan-kaki">
+            <h2>Catatan kaki</h2>
+            <p>[Isi catatan kaki di sini]</p>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.querySelector('.sidebar');
+        const tocToggle = document.querySelector('.toc-toggle');
+        const bodyElement = document.body;
+        const nightModeToggle = document.querySelector('.night-mode-toggle');
+
+        function toggleToc() {
+            sidebar.classList.toggle('open');
+        }
+
+        function toggleNightMode() {
+            bodyElement.classList.toggle('dark-mode');
+            if (bodyElement.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                bodyElement.classList.add('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>
