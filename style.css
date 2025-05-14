@@ -1,0 +1,316 @@
+/* style.css */
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Efek bayangan tipis */
+}
+
+.header-left button,
+.header-right button {
+    background: none;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: opacity 0.2s ease; /* Efek hover tipis */
+}
+
+.header-left button:hover,
+.header-right button:hover {
+    opacity: 0.8;
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+}
+
+.header-center h1 {
+    margin: 0;
+    font-size: 1.2em;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: 20px auto; /* Beri margin atas bawah */
+    padding: 0 20px;
+}
+
+.sidebar {
+    width: 100%;
+    padding: 15px;
+    background-color: #eee;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; /* Transisi untuk animasi slide */
+    transform: translateX(-100%); /* Sembunyikan di awal */
+    position: fixed; /* Agar bisa di-slide dari samping */
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 10; /* Pastikan di atas konten */
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Efek bayangan saat muncul */
+}
+
+.left-sidebar {
+    order: -1;
+}
+
+.left-sidebar.active {
+    transform: translateX(0); /* Tampilkan saat aktif */
+}
+
+.right-sidebar {
+    width: 100%;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.main-content {
+    width: 100%;
+    padding: 15px;
+    background-color: white;
+    border: none;
+    box-sizing: border-box;
+    transition: margin-left 0.3s ease; /* Transisi saat sidebar muncul */
+}
+
+/* Styling untuk daftar isi */
+#table-of-contents ul {
+    list-style: none;
+    padding: 0;
+}
+
+#table-of-contents ul li {
+    margin-bottom: 8px;
+}
+
+#table-of-contents a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+    transition: color 0.2s ease; /* Efek hover pada link */
+}
+
+#table-of-contents a:hover {
+    color: #007bff; /* Warna hover */
+}
+
+#table-of-contents li.sub-heading a {
+    margin-left: 15px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Styling untuk mode malam */
+.dark-mode {
+    background-color: #333;
+    color: #f4f4f4;
+}
+
+.dark-mode header {
+    background-color: #222;
+    color: #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Bayangan lebih gelap */
+}
+
+.dark-mode .sidebar {
+    background-color: #444;
+    color: #ddd;
+    border-color: #555;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Bayangan lebih gelap */
+}
+
+.dark-mode .main-content {
+    background-color: #222;
+    color: #ddd;
+}
+
+.dark-mode #table-of-contents a {
+    color: #ddd;
+}
+
+.dark-mode #table-of-contents a:hover {
+    color: #5bc0de; /* Warna hover gelap */
+}
+
+.dark-mode #table-of-contents li.sub-heading a {
+    color: #aaa;
+}
+
+/* Styling Tombol Mode Malam */
+.header-right button#toggle-dark-mode {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transisi warna */
+}
+
+.header-right button#toggle-dark-mode:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.header-right button#toggle-dark-mode span#dark-mode-icon {
+    font-size: 1.2em;
+}
+
+body:not(.dark-mode) .header-right button#toggle-dark-mode {
+    color: white;
+}
+
+body.dark-mode .header-right button#toggle-dark-mode {
+    color: #ddd;
+}
+
+/* Animasi Muncul Daftar Isi */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.left-sidebar.active {
+    animation: slideInLeft 0.3s ease-out forwards;
+}
+
+.left-sidebar:not(.active) {
+    animation: slideOutLeft 0.3s ease-in forwards;
+}
+
+/* Media query untuk tampilan desktop */
+@media (min-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .header-left button,
+    .header-right button {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    .header-center h1 {
+        font-size: 1.5em;
+        text-align: left;
+        flex-grow: 0;
+        margin-left: 15px;
+    }
+
+    .container {
+        flex-direction: row;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+
+    .sidebar {
+        width: 250px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+        transform: translateX(0); /* Tampilkan di desktop */
+        box-shadow: none; /* Hilangkan animasi di desktop */
+        animation: none;
+    }
+
+    .left-sidebar {
+        order: 0;
+        display: block;
+        margin-right: 20px !important;
+    }
+
+    .right-sidebar {
+        margin-left: 20px !important;
+        border-top: none;
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        border: 1px solid #ddd;
+        margin-left: 0 !important; /* Default margin */
+    }
+
+    .container.sidebar-active .main-content {
+        margin-left: 250px; /* Margin saat sidebar aktif */
+    }
+}
+body {
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header, footer {
+    background-color: #0f5132;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+button {
+    background-color: #198754;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.logo {
+    height: 48px;
+    width: auto;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.8rem; /* atau sesuaikan dengan desainmu */
+    font-weight: 600;
+}
