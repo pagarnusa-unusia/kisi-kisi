@@ -1,144 +1,124 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Remove the 'loggedIn' status from localStorage on every page load.
-    // This forces the user to re-enter the code if they refresh the page.
-    localStorage.removeItem('loggedIn');
-
-    // --- Login Page Elements ---
+document.addEventListener('DOMContentLoaded', () => {
     const loginPage = document.getElementById('loginPage');
     const mainContent = document.getElementById('mainContent');
     const accessCodeInput = document.getElementById('accessCode');
     const loginButton = document.getElementById('loginButton');
     const loginMessage = document.getElementById('loginMessage');
-    const loadingSpinner = document.getElementById('loadingSpinner'); // Get the loading spinner element
+    const loadingSpinner = document.getElementById('loadingSpinner');
 
-    // --- Main Content Elements (Existing) ---
-    const darkModeButton = document.getElementById('toggle-dark-mode');
-    const body = document.body;
-    const tocButton = document.getElementById('toggle-toc');
-    const leftSidebar = document.querySelector('.left-sidebar');
-    const closeTocButton = document.getElementById('close-toc');
-    const tableOfContents = document.getElementById('table-of-contents');
-    const articleHeadings = document.querySelectorAll('.main-content h2, .main-content h3');
-    const darkModeText = document.getElementById('dark-mode-text');
+    // --- Login Logic (for index.html) ---
+if (loginPage) {
+    loginButton.addEventListener('click', () => {
+        const enteredCode = accessCodeInput.value;
+        // Definisikan array kode yang valid
+        const correctCodes = ["12345", "PAGARNUSA2025", "UNUSIA_ADMIN"];
 
-    // --- Access Code Configuration ---
-    const CORRECT_ACCESS_CODES = [
-        "pagarnusa2025",
-        "unusia123",
-        "admin456",
-        "secretkey",
-        "M06I0304M",
-    ];
+        loadingSpinner.classList.add('active');
+        loginMessage.style.display = 'none';
 
-    // Function to initialize main page features after login
-    function initializeMainPage() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-mode');
+        setTimeout(() => {
+            loadingSpinner.classList.remove('active');
+            // Periksa apakah kode yang dimasukkan ada dalam array kode yang benar
+            if (correctCodes.includes(enteredCode)) {
+                window.location.href = 'berita.html';
+            } else {
+                loginMessage.textContent = "Kode akses salah. Silakan coba lagi.";
+                loginMessage.style.display = 'block';
+            }
+        }, 1500);
+    });
+
+    accessCodeInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            loginButton.click();
+        }
+    });
+}
+
+    // --- Main Content Logic (for berita.html) ---
+    if (mainContent) {
+        const toggleTocButton = document.getElementById('toggle-toc');
+        const closeTocButton = document.getElementById('close-toc');
+        const leftSidebar = document.querySelector('.left-sidebar');
+        const tableOfContents = document.getElementById('table-of-contents');
+        const mainContentElement = document.querySelector('.main-content');
+        const toggleDarkModeButton = document.getElementById('toggle-dark-mode');
+        const darkModeText = document.getElementById('dark-mode-text');
+
+        // Function to generate Table of Contents
+        const generateTableOfContents = () => {
+            tableOfContents.innerHTML = ''; // Clear existing
+            const headings = mainContentElement.querySelectorAll('h2');
+            headings.forEach(heading => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                const id = heading.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+                heading.id = id; // Assign ID to heading
+
+                a.href = `#${id}`;
+                a.textContent = heading.textContent;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                    // Close sidebar on mobile after clicking a link
+                    if (window.innerWidth <= 768) {
+                        leftSidebar.classList.remove('active');
+                        document.body.classList.remove('overlay-active');
+                    }
+                });
+                li.appendChild(a);
+                tableOfContents.appendChild(li);
+            });
+        };
+
+        generateTableOfContents(); // Generate on load
+
+        // Toggle Table of Contents (sidebar)
+        toggleTocButton.addEventListener('click', () => {
+            leftSidebar.classList.toggle('active');
+            document.body.classList.toggle('overlay-active');
+        });
+
+        closeTocButton.addEventListener('click', () => {
+            leftSidebar.classList.remove('active');
+            document.body.classList.remove('overlay-active');
+        });
+
+        // Close sidebar if overlay is clicked (on mobile)
+        document.body.addEventListener('click', (event) => {
+            if (event.target.classList.contains('overlay-active') && window.innerWidth <= 768) {
+                leftSidebar.classList.remove('active');
+                document.body.classList.remove('overlay-active');
+            }
+        });
+
+
+        // Dark Mode Toggle
+        toggleDarkModeButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeText.textContent = 'Light Mode';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                darkModeText.textContent = 'Dark Mode';
+            }
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
             darkModeText.textContent = 'Light Mode';
         } else {
             darkModeText.textContent = 'Dark Mode';
         }
 
-        darkModeButton.addEventListener('click', function() {
-            body.classList.toggle('dark-mode');
-            const isDarkMode = body.classList.contains('dark-mode');
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            darkModeText.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
-        });
-
-        tocButton.addEventListener('click', function() {
-            leftSidebar.classList.add('active');
-            body.classList.add('overlay-active');
-        });
-
-        closeTocButton.addEventListener('click', function() {
-            leftSidebar.classList.remove('active');
-            body.classList.remove('overlay-active');
-        });
-
-        let headingCount = 1;
-        articleHeadings.forEach(function(heading) {
-            const id = 'heading-' + headingCount++;
-            heading.id = id;
-
-            const listItem = document.createElement('li');
-            const anchor = document.createElement('a');
-            anchor.textContent = heading.textContent;
-            anchor.href = '#' + heading.id;
-            listItem.appendChild(anchor);
-
-            if (heading.tagName === 'H3') {
-                listItem.classList.add('sub-heading');
-            }
-            tableOfContents.appendChild(listItem);
-        });
-
-        tableOfContents.addEventListener('click', function(event) {
-            if (event.target.tagName === 'A' && window.innerWidth <= 768) {
-                leftSidebar.classList.remove('active');
-                body.classList.remove('overlay-active');
+        // Handle sidebar behavior on resize (for desktop view)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) { // Assuming 768px as the breakpoint for mobile/desktop
+                leftSidebar.classList.remove('active'); // Ensure sidebar is not active on desktop view
+                document.body.classList.remove('overlay-active');
             }
         });
-
-        body.addEventListener('click', function(event) {
-            if (body.classList.contains('overlay-active') && !leftSidebar.contains(event.target) && event.target !== tocButton) {
-                leftSidebar.classList.remove('active');
-                body.classList.remove('overlay-active');
-            }
-        });
-    }
-
-    // --- Login Logic ---
-    function handleLogin() {
-        const enteredCode = accessCodeInput.value.trim();
-
-        // 1. Show the loading spinner
-        loadingSpinner.classList.add('active');
-        loginButton.disabled = true; // Disable button to prevent multiple clicks
-        accessCodeInput.disabled = true; // Disable input during loading
-        loginMessage.style.display = 'none'; // Hide any previous error messages
-
-        // 2. Wait for 2 seconds (2000 milliseconds)
-        setTimeout(() => {
-            // 3. Hide the loading spinner
-            loadingSpinner.classList.remove('active');
-            loginButton.disabled = false; // Re-enable button
-            accessCodeInput.disabled = false; // Re-enable input
-
-            // 4. Perform the actual login check
-            if (CORRECT_ACCESS_CODES.includes(enteredCode)) {
-                loginPage.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                localStorage.setItem('loggedIn', 'true'); // Temporarily set login state
-                initializeMainPage();
-            } else {
-                loginMessage.textContent = "Kode akses salah. Silakan coba lagi.";
-                loginMessage.style.display = 'block';
-                accessCodeInput.value = '';
-                accessCodeInput.focus();
-            }
-        }, 2000); // 2000 milliseconds = 2 seconds
-    }
-
-    // Event listener for login button click
-    loginButton.addEventListener('click', handleLogin);
-
-    // Event listener for Enter key in the access code input
-    accessCodeInput.addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            handleLogin();
-        }
-    });
-
-    // Initial check (will always force login due to removeItem at start)
-    if (localStorage.getItem('loggedIn') === 'true') {
-        loginPage.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        initializeMainPage();
-    } else {
-        loginPage.classList.remove('hidden');
-        mainContent.classList.add('hidden');
-        accessCodeInput.focus();
     }
 });
