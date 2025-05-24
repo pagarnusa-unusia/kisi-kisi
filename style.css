@@ -116,9 +116,10 @@ body.overlay-active::after {
     display: none; /* Hidden by default */
 }
 
-.hidden {
-    display: none; /* Class to hide the main content initially */
-}
+/* The 'hidden' class should only be used by JavaScript to show/hide elements, not for initial state in this setup */
+/* .hidden {
+    display: none;
+} */
 /* --- End Login Page Specific Styles --- */
 
 
@@ -414,10 +415,6 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
-/* style.css */
-
-/* ... (Your existing CSS code) ... */
-
 /* --- Loading Spinner Styles --- */
 .loading-spinner {
     position: fixed;
@@ -454,6 +451,3 @@ footer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-/* --- End Loading Spinner Styles --- */
-
-/* ... (Rest of your existing CSS code) ... */
