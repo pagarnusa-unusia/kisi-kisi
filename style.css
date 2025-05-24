@@ -22,6 +22,106 @@ body.overlay-active::after {
     z-index: 9; /* Di bawah sidebar tapi di atas konten utama */
 }
 
+/* --- Login Page Specific Styles --- */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make the login page take full viewport height */
+    background-color: #e0f2f1; /* Light greenish background for login */
+}
+
+.login-header {
+    background-color: #0f5132; /* Dark green */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center; /* Center content in login header */
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-main {
+    flex-grow: 1; /* Allows main content to take available space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-container h2 {
+    color: #0f5132;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.login-container p {
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1em;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.login-container button {
+    background-color: #198754; /* Green */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full width button */
+}
+
+.login-container button:hover {
+    background-color: #157347;
+    transform: translateY(-2px);
+}
+
+.login-footer {
+    background-color: #0f5132;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.error-message {
+    color: #dc3545; /* Red for error */
+    font-weight: bold;
+    margin-top: 15px;
+    display: none; /* Hidden by default */
+}
+
+.hidden {
+    display: none; /* Class to hide the main content initially */
+}
+/* --- End Login Page Specific Styles --- */
+
+
 header {
     background-color: #0f5132; /* Warna hijau gelap */
     color: white;
@@ -293,6 +393,17 @@ body.dark-mode .header-right button#toggle-dark-mode {
         border: 1px solid #ddd;
         margin-left: 0; /* Pastikan tidak ada margin yang menggeser konten utama */
     }
+
+    /* Adjust info-table-sidebar for desktop layout */
+    .info-table-sidebar {
+        position: sticky;
+        top: 60px; /* Aligns with other sidebars */
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+        margin-left: 20px; /* Space from main content */
+        max-width: 300px !important; /* Adjust width as needed */
+        flex-shrink: 0; /* Prevent it from shrinking */
+    }
 }
 
 /* Footer styling */
@@ -303,3 +414,46 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
+/* style.css */
+
+/* ... (Your existing CSS code) ... */
+
+/* --- Loading Spinner Styles --- */
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of everything */
+    color: white;
+    font-size: 1.2em;
+    display: none; /* Hidden by default, shown by JS */
+}
+
+.loading-spinner.active {
+    display: flex; /* Show when active */
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid #198754; /* Green spinner */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite; /* Spinning animation */
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* --- End Loading Spinner Styles --- */
+
+/* ... (Rest of your existing CSS code) ... */
