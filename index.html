@@ -76,6 +76,20 @@
       transform: scale(1.05);
     }
 
+    .find-code-link {
+      display: block; /* Membuat link menjadi blok agar di baris baru */
+      margin-top: 15px; /* Jarak antara paragraf dan link */
+      font-size: 0.9rem;
+      color: #2e7d32;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .find-code-link:hover {
+      color: #1b5e20;
+      text-decoration: underline;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -91,8 +105,9 @@
 <body>
   <div class="container">
     <h1>Akses Kisi-Kisi Ujian</h1>
-    <p>Masukkan kode khusus sesuai warna sabuk Anda:</p>
-    <input type="password" id="kode" placeholder="Kode Khusus" />
+    <p>Masukkan Kode-Ujian Anda:</p>
+    <a href="#" class="https://pagarnusa-unusia.github.io/kode-ujian/">Temukan Kode Ujian</a>
+    <input type="text" id="kode" placeholder="Kode Khusus" />
     <button onclick="cekKode()">Akses</button>
   </div>
 
