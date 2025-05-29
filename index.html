@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akses Kisi-Kisi Ujian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     /* Reset dasar */
     * {
@@ -13,8 +16,8 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      font-family: 'Poppins', sans-serif; /* Menggunakan font Poppins untuk tampilan yang lebih modern */
+      background: linear-gradient(135deg, #e0f7fa 0%, #c8e6c9 100%); /* Gradien yang lebih halus */
       height: 100vh;
       display: flex;
       align-items: center;
@@ -24,76 +27,89 @@
 
     .container {
       background-color: #ffffff;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 45px 35px; /* Sedikit lebih banyak padding */
+      border-radius: 20px; /* Sudut yang lebih membulat */
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Bayangan yang lebih dalam */
       text-align: center;
       width: 100%;
-      max-width: 400px;
-      animation: fadeIn 1s ease;
+      max-width: 420px; /* Lebar maksimum sedikit lebih besar */
+      animation: fadeIn 1s ease-out forwards; /* Animasi fadeIn lebih halus */
     }
 
     h1 {
-      margin-bottom: 16px;
-      color: #2e7d32;
-      font-size: 1.8rem;
+      margin-bottom: 20px; /* Jarak bawah lebih lega */
+      color: #1a6d20; /* Warna hijau yang lebih gelap dan kaya */
+      font-size: 2.2rem; /* Ukuran font H1 lebih besar */
+      font-weight: 700; /* Font lebih tebal */
+      letter-spacing: -0.5px; /* Sedikit kerning untuk judul */
     }
 
     p {
-      margin-bottom: 24px;
-      font-size: 1rem;
-      color: #555;
+      margin-bottom: 28px; /* Jarak bawah lebih lega */
+      font-size: 1.05rem; /* Ukuran font paragraf sedikit lebih besar */
+      color: #666; /* Warna abu-abu yang lebih lembut */
+      line-height: 1.6; /* Ketinggian baris untuk keterbacaan */
     }
 
-    input[type="password"] {
+    input[type="text"] { /* Mengubah type dari "password" ke "text" sesuai input Anda */
       width: 100%;
-      padding: 12px 16px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      transition: border-color 0.3s;
+      padding: 14px 18px; /* Padding lebih besar */
+      font-size: 1.05rem;
+      border: 1px solid #ddd; /* Warna border lebih terang */
+      border-radius: 10px; /* Sudut lebih membulat */
+      transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk bayangan */
+      outline: none; /* Menghilangkan outline default */
     }
 
-    input[type="password"]:focus {
-      border-color: #2e7d32;
-      outline: none;
+    input[type="text"]:focus {
+      border-color: #28a745; /* Warna border fokus yang lebih menonjol */
+      box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2); /* Efek bayangan saat fokus */
     }
 
     button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1rem;
+      margin-top: 25px; /* Jarak atas lebih lega */
+      padding: 14px 30px; /* Padding lebih besar */
+      font-size: 1.1rem; /* Ukuran font tombol lebih besar */
+      font-weight: 600; /* Font tombol lebih tebal */
       color: #fff;
-      background-color: #2e7d32;
+      background-color: #28a745; /* Warna hijau yang lebih cerah dan menarik */
       border: none;
-      border-radius: 8px;
+      border-radius: 10px; /* Sudut lebih membulat */
       cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transisi untuk bayangan */
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2); /* Bayangan tombol */
     }
 
     button:hover {
-      background-color: #1b5e20;
-      transform: scale(1.05);
+      background-color: #218838; /* Warna saat hover lebih gelap */
+      transform: translateY(-2px); /* Efek angkat saat hover */
+      box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3); /* Bayangan lebih intens saat hover */
+    }
+
+    button:active {
+      transform: translateY(0); /* Kembali ke posisi semula saat diklik */
+      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2); /* Bayangan lebih ringan saat aktif */
     }
 
     .find-code-link {
-      display: block; /* Membuat link menjadi blok agar di baris baru */
-      margin-top: 15px; /* Jarak antara paragraf dan link */
-      font-size: 0.9rem;
-      color: #2e7d32;
+      display: block;
+      margin-top: -15px; /* Mengurangi margin-top agar lebih dekat ke input */
+      margin-bottom: 20px; /* Memberi jarak ke input */
+      font-size: 0.95rem; /* Ukuran font sedikit lebih besar */
+      color: #007bff; /* Warna biru standar untuk link */
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
     }
 
     .find-code-link:hover {
-      color: #1b5e20;
+      color: #0056b3; /* Warna biru lebih gelap saat hover */
       text-decoration: underline;
     }
 
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px); /* Mulai dari sedikit lebih bawah */
       }
       to {
         opacity: 1;
@@ -106,10 +122,8 @@
   <div class="container">
     <h1>Akses Kisi-Kisi Ujian</h1>
     <p>Masukkan Kode-Ujian Anda:</p>
-    <a href="#" class="https://pagarnusa-unusia.github.io/kode-ujian/">Temukan Kode Ujian</a>
-    <input type="text" id="kode" placeholder="Kode Khusus" />
-    <button onclick="cekKode()">Akses</button>
-  </div>
+    <a href="https://pagarnusa-unusia.github.io/kode-ujian/" class="find-code-link" target="_blank">Temukan Kode Ujian Anda di Sini</a>
+    <input type="text" id="kode" placeholder="Kode-Ujian" autocomplete="off" /> <button onclick="cekKode()">Akses Materi</button> </div>
 
   <script>
     function cekKode() {
@@ -128,10 +142,11 @@
         kode === "Riko202415"
       ) {
         window.location.href = "kuning.html";
-      } else if (kode === "ErSaRi202216") {
+      } else if (kode === "ErSaRi202216" || kode === "SyUSan202217"
+      ) {
         window.location.href = "biru.html";
       } else {
-        alert("Kode salah atau tidak dikenali!");
+        alert("Kode salah atau tidak dikenali! Silakan periksa kembali kode Anda atau temukan di link 'Temukan Kode Ujian Anda di Sini'.");
       }
     }
   </script>
