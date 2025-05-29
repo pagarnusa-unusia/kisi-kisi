@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akses Kisi-Kisi Ujian</title>
+  <style>
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      margin-bottom: 16px;
+      color: #2e7d32;
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin-bottom: 24px;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="password"]:focus {
+      border-color: #2e7d32;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #2e7d32;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #1b5e20;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Akses Kisi-Kisi Ujian</h1>
+    <p>Masukkan kode khusus sesuai warna sabuk Anda:</p>
+    <input type="password" id="kode" placeholder="Kode Khusus" />
+    <button onclick="cekKode()">Akses</button>
+  </div>
+
+  <script>
+    function cekKode() {
+      const kode = document.getElementById('kode').value.trim();
+      if (
+        kode === "DySa20231" || kode === "RISN20233" ||
+        kode === "AhAz202310" || kode === "NiShZa202311" ||
+        kode === "Khal202312" || kode === "FaAn202313"
+      ) {
+        window.location.href = "merah.html";
+      } else if (
+        kode === "DwNuAi20242" || kode === "HoSa20244" ||
+        kode === "ReImSa20245" || kode === "NuHiHa20246" ||
+        kode === "DeAhFa20247" || kode === "CiHa20258" ||
+        kode === "AgPr20249" || kode === "IzQuNa202414" ||
+        kode === "Riko202415"
+      ) {
+        window.location.href = "kuning.html";
+      } else if (kode === "BIRU123") {
+        window.location.href = "biru.html";
+      } else {
+        alert("Kode salah atau tidak dikenali!");
+      }
+    }
+  </script>
+</body>
+</html>
