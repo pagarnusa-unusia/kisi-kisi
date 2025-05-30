@@ -128,44 +128,51 @@
     </div>
 
     <script>
-        function cekKode() {
-            const kodeInput = document.getElementById('kode');
-            const kode = kodeInput.value.trim(); // Mengambil nilai input dan menghapus spasi di awal/akhir
+function cekKode() {
+    const kodeInput = document.getElementById('kode');
+    const kode = kodeInput.value.trim(); // Mengambil nilai input dan menghapus spasi di awal/akhir
 
-            // Daftar kode untuk setiap halaman
-            const kodeMerah = [
-                "DySa20231", "RISN20233", "AhAz202310", "NiShZa202311",
-                "Khal202312", "FaAn202313"
-            ];
-            const kodeKuning = [
-                "DwNuAi20242", "HoSa20244", "ReImSa20245", "NuHiHa20246",
-                "DeAhFa20247", "CiHa20258", "AgPr20249", "IzQuNa202414",
-                "Riko202415", "DiYun202419"
-            ];
-            const kodeBiru = [
-                "ErSaRi202216", "SyUSan202217", "AmD202218"
-            ];
+    // Daftar kode untuk setiap halaman
+    const kodeMerah = [
+        "DySa20231", "RISN20233", "AhAz202310", "NiShZa202311",
+        "Khal202312", "FaAn202313"
+    ];
+    const kodeKuning = [
+        "DwNuAi20242", "HoSa20244", "ReImSa20245", "NuHiHa20246",
+        "DeAhFa20247", "CiHa20258", "AgPr20249", "IzQuNa202414",
+        "Riko202415", "DiAy202419", "KhAn202425", "SyMu202426" // Ditambahkan dari gambar
+    ];
+    const kodeBiru = [
+        "ErSaFi202216", "SyUIsE202217", "Amel202218", "YEYE202220", // Ditambahkan dari gambar
+        "LaRo202221", "Ikra202223", "Illq202324", "Muti202227" // Ditambahkan dari gambar
+    ];
+    const kodePutih = [ // Tambahan untuk kode "Putih" dari gambar
+        "AhYu202422"
+    ];
 
-            // Validasi jika input kosong
-            if (kode === "") {
-                alert("Mohon masukkan kode ujian Anda.");
-                kodeInput.focus(); // Mengarahkan fokus kembali ke input
-                return; // Menghentikan fungsi
-            }
+    // Validasi jika input kosong
+    if (kode === "") {
+        alert("Mohon masukkan kode ujian Anda.");
+        kodeInput.focus(); // Mengarahkan fokus kembali ke input
+        return; // Menghentikan fungsi
+    }
 
-            // Memeriksa kode di setiap daftar
-            if (kodeMerah.includes(kode)) {
-                window.location.href = "merah.html";
-            } else if (kodeKuning.includes(kode)) {
-                window.location.href = "kuning.html";
-            } else if (kodeBiru.includes(kode)) {
-                window.location.href = "biru.html";
-            } else {
-                alert("Kode salah atau tidak dikenali! Silakan periksa kembali kode Anda atau temukan di link 'Temukan Kode Ujian Anda di Sini'.");
-                kodeInput.value = ""; // Mengosongkan input setelah kode salah
-                kodeInput.focus(); // Mengarahkan fokus kembali ke input
-            }
-        }
+    // Memeriksa kode di setiap daftar
+    if (kodeMerah.includes(kode)) {
+        window.location.href = "merah.html";
+    } else if (kodeKuning.includes(kode)) {
+        window.location.href = "kuning.html";
+    } else if (kodeBiru.includes(kode)) {
+        window.location.href = "biru.html";
+    } else if (kodePutih.includes(kode)) { // Penanganan untuk kode "Putih"
+        window.location.href = "putih.html"; // Asumsi ada halaman putih.html
+    }
+    else {
+        alert("Kode salah atau tidak dikenali! Silakan periksa kembali kode Anda atau temukan di link 'Temukan Kode Ujian Anda di Sini'.");
+        kodeInput.value = ""; // Mengosongkan input setelah kode salah
+        kodeInput.focus(); // Mengarahkan fokus kembali ke input
+    }
+}
     </script>
 </body>
 </html>
